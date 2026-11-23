@@ -1,0 +1,11 @@
+node_modules
+data
+test
+.git
+.env
+.env.*
+*.md
+room.json
+room.json.tmp
+*-room.json
+.archive

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171c25">
+  <meta name="description" content="夜场画廊，一桌玩家共用的在线艺术拍卖游戏。">
+  <title>夜场画廊</title>
+  <link rel="icon" type="image/webp" href="/art/v1-0-s.webp">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/client.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="/" aria-label="夜场画廊首页">
+      <span class="mark" aria-hidden="true"></span><span>夜场画廊</span>
+    </a>
+    <div class="mast-actions">
+      <button class="text-button" id="show-guide" type="button" hidden>新手指引</button>
+      <button class="text-button" id="show-rules" type="button">规则手册</button>
+      <span class="connection" id="connection" role="status">连接中</span>
+    </div>
+  </header>
+  <main id="entry" class="entry">
+    <section class="intro">
+      <span class="overline">NIGHT GALLERY</span>
+      <h1>灯亮，<br>拍卖开始。</h1>
+      <p>征集作品、竞拍收藏。在行情变化中，为你的画廊买下值得的一幅。</p>
+      <div class="gallery-strip" aria-hidden="true">
+        <img src="/art/v1-0-s.webp" alt="" width="160" height="160">
+        <img src="/art/v1-2-s.webp" alt="" width="160" height="160">
+        <img src="/art/v1-4-s.webp" alt="" width="160" height="160">
+        <img src="/art/v1-6-s.webp" alt="" width="160" height="160">
+      </div>
+      <div class="intro-facts"><span>3–6 人竞拍</span><span>支持观战</span><span>一桌最多 10 人</span></div>
+    </section>
+    <section id="welcome" class="panel entry-panel" aria-label="进入拍卖厅">
+      <p role="status">正在查询房间…</p>
+    </section>
+  </main>
+  <main id="inside" class="inside" hidden>
+    <section id="room-head" class="room-head"></section>
+    <section id="guide-invite" class="guide-invite" aria-label="首次入场" hidden>
+      <p>第一次来？跟着指引学会送拍、出价和查看结算。</p>
+      <div class="control-buttons">
+        <button class="button secondary" type="button" data-action="guide">开始指引</button>
+        <button class="text-button" type="button" data-action="skip-guide">跳过</button>
+      </div>
+    </section>
+    <div class="room-grid">
+      <div class="table-column">
+        <section id="stage" class="panel stage" aria-label="拍卖桌">
+          <div id="stage-content"></div>
+          <div id="bid-controls"></div>
+          <div id="bid-status"></div>
+        </section>
+        <section id="hand" class="panel hand" aria-label="我的委托"></section>
+        <section id="sales" class="panel sales" aria-label="成交记录"></section>
+      </div>
+      <aside class="side-column">
+        <section id="market" class="panel market" aria-label="市场行情"></section>
+        <section id="seats" class="panel seats" aria-label="席位"></section>
+        <section id="control" class="panel control" aria-label="房间管理"></section>
+      </aside>
+    </div>
+  </main>
+  <div id="notice" role="status" aria-live="polite" hidden></div>
+  <dialog id="guide-dialog" class="modal" aria-labelledby="guide-heading">
+    <div class="modal-top">
+      <div><span class="overline" id="guide-progress"></span><h2 id="guide-heading">新手指引</h2></div>
+      <button class="text-button" data-action="close-guide" type="button">关闭指引</button>
+    </div>
+    <div class="guide-step" aria-live="polite" aria-atomic="true">
+      <h3 id="guide-title"></h3>
+      <p id="guide-copy" class="muted"></p>
+    </div>
+    <div class="guide-actions">
+      <button class="text-button" data-action="skip-guide" type="button">跳过指引</button>
+      <div class="control-buttons">
+        <button class="button secondary" id="guide-back" type="button">上一步</button>
+        <button class="button" id="guide-next" type="button">下一步</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="rules-dialog" class="modal">
+    <div class="modal-top"><div><span class="overline">夜场画廊</span><h2>规则手册</h2></div><form method="dialog"><button class="text-button" type="submit">关闭</button></form></div>
+    <div class="rules-copy">
+      <h3>准备</h3>
+      <p>3 至 6 人参赛，旁观者与参赛者合计最多 10 人。每位参赛者获得设置中的初始现金和 3 张委托。现金与委托只对本人可见，已购买的作品公开。</p>
+      <h3>展期与拍品</h3>
+      <p>每个展期，每人轮流担任一次策展人。选一件委托上拍后立即补一件。超时自动选择第一件。下个展期由轮次顺序里的下一位先开拍。</p>
+      <h3>公开竞价与密封报价</h3>
+      <p>策展人不能竞拍自己选的作品。起拍价为 4 加版次溢价。公开竞价中，每次至少比当前最高价多 1，且不得超过现金。最后不足 5 秒时出价，倒计时补到 5 秒，最多额外延长 20 秒。最高出价者支付自己的出价。</p>
+      <p>密封报价中，可提交出价或弃权并修改，直至所有买家均已响应或计时结束。最高报价者支付第二高价。只有一个有效报价时支付起拍价。同价按策展人之后的轮次顺序优先。超时未响应视为弃权。混合模式从公开竞价开始，随后两种形式交替。</p>
+      <h3>成交与行情</h3>
+      <p>无人出价则流拍。成交后，买家拿到作品，策展人获得成交价四分之一的整数部分，其余进入银行。系列行情初始为 12，每成交一件上涨 3，上限 32。一个展期内没有成交的系列在展期末下跌 2，下限 8。</p>
+      <h3>最终排名</h3>
+      <p>现金加上藏品估值与收藏奖励就是总资产。单件估值等于最终系列行情加版次溢价。每集齐四个不同系列的一组作品，加 12 点。总资产最高者获胜，同分并列。</p>
+      <h3>暂停与续局</h3>
+      <p>房主在拍卖桌点「暂停游戏」可以冻结当前倒计时。点「继续游戏」后从剩余时间开始。掉线、关页或切回前台时，在同一浏览器打开原地址可自动恢复席位并同步最新拍卖状态。</p>
+    </div>
+  </dialog>
+  <dialog id="art-dialog" class="modal art-dialog">
+    <div class="modal-top"><div><span id="art-series" class="overline"></span><h2 id="art-title"></h2></div><form method="dialog"><button class="text-button" type="submit">关闭</button></form></div>
+    <div id="art-content"></div>
+  </dialog>
+  <dialog id="reset-dialog" class="modal">
+    <div class="modal-top"><h2>结束本局？</h2><form method="dialog"><button class="text-button" type="submit">取消</button></form></div>
+    <p class="muted">本局进度会被清除，所有人将返回同一个大厅。</p>
+    <button class="button danger" id="confirm-reset" type="button">结束本局</button>
+  </dialog>
+  <dialog id="recovery-dialog" class="modal">
+    <div class="modal-top"><h2>席位恢复码</h2><form method="dialog"><button class="text-button" type="submit">关闭</button></form></div>
+    <p class="muted">可在其他浏览器或迁移后的地址恢复你的席位。请自行保存，持有此码的人可使用你的席位。</p>
+    <label class="field recovery-field"><span>复制下方恢复码</span><input id="recovery-code" readonly autocomplete="off"></label>
+  </dialog>
+</body>
+</html>

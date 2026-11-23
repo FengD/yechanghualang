@@ -1,0 +1,22 @@
+{
+  "name": "night-gallery",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/game.test.js test/server.test.js",
+    "test:browser": "node test/browser.mjs",
+    "test:bandwidth": "node test/bandwidth.mjs",
+    "test:mobile": "node test/mobile.mjs"
+  },
+  "dependencies": {
+    "ws": "8.23.0"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

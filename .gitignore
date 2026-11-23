@@ -1,0 +1,9 @@
+node_modules/
+data/
+.env
+.env.*
+!.env.example
+room.json
+room.json.tmp
+*-room.json
+.archive/
